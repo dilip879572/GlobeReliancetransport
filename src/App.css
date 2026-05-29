@@ -1,0 +1,5 @@
+/* Enable smooth scrolling across the entire document canvas */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 140px; /* Adjust this height to match your sticky header so it doesn't cover section headings */
+}
