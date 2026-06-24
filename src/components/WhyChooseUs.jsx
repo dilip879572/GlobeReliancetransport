@@ -4,17 +4,17 @@ import { Container, Row, Col, Card } from 'react-bootstrap';
 export default function WhyChooseUs() {
   const cardsData = [
     { 
-      imgSrc: "https://globe-reliance-transport.vercel.app/assets/feat-deals-C5NIVoYs.png", 
+      imgSrc: "assets/feat-deals-C5NIVoYs.png", 
       title: "GREAT DEALS", 
       text: "In the UAE, we provide some of the most cost-effective transport options, with scheduled daily services to and from key locations. We also offer a wide range of fare packages and discounts, including special rates for city tours and group bookings." 
     },
     { 
-      imgSrc: "https://globe-reliance-transport.vercel.app/assets/feat-promise-DV-0LOl3.png", 
+      imgSrc: "assets/feat-promise-DV-0LOl3.png", 
       title: "DELIVER ON PROMISE", 
       text: "We know your time is important, so our priority is to ensure every journey is smooth, comfortable, and on schedule. Our transport services are supported by a dedicated team of experienced professionals who work hard to deliver consistently reliable service." 
     },
     { 
-      imgSrc: "https://globe-reliance-transport.vercel.app/assets/feat-quality-c9Cad_TK.png", 
+      imgSrc: "assets/feat-quality-c9Cad_TK.png", 
       title: "QUALITY FOCUS", 
       text: "At the heart of our operations, we deliver safe, reliable, and efficient transport solutions across the UAE. Our commitment to excellence is backed by a skilled, professional team always ready to exceed customer expectations." 
     }

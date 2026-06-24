@@ -1,16 +1,34 @@
 import React from 'react';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import HeaderNav from './components/HeaderNav';
-import HeroSection from './components/HeroSection';
-import StatsRow from './components/StatsRow';
-import WhyChooseUs from './components/WhyChooseUs';
-import OurServices from './components/OurServices';
-import QuoteAndHours from './components/QuoteAndHours';
-import ExcellenceAndAccreditation from './components/ExcellenceAndAccreditation';
-import ContactUs from './components/ContactUs';
 import Footer from './components/Footer';
-import { ToastContainer, toast } from "react-toastify";
+import LandingPage from './components/LandingPage';
+import BlogPage from './components/BlogPage';
+import ScrollToTop from './components/ScrollToTop'; 
+import OurServices from "./components/OurServices"
+import OurServices1 from "./components/OurServices1"
+
+import { ToastContainer } from "react-toastify";
+import OurFleet from "./components/OurFleet";
+import Getquote from "./components/Getquote";
+import AdminLogin from "./pages/AdminLogin";       
+import AdminDashboard from "./pages/AdminDashboard";
 import "react-toastify/dist/ReactToastify.css";
 
+
+function NavigationWrapper({ children }) {
+  const location = useLocation();
+
+  const isAdminPath = location.pathname.startsWith('/admin');
+
+  return (
+    <>
+      {!isAdminPath && <HeaderNav />}
+      {children}
+      {!isAdminPath && <Footer />}
+    </>
+  );
+}
 
 function App() {
   const globalStyles = {
@@ -18,43 +36,32 @@ function App() {
     backgroundColor: '#ffffff',
     color: '#333333',
     overflowX: 'hidden',
-    scrollBehavior: 'smooth' // Adds clean cinematic smooth animation on modern browsers
+    scrollBehavior: 'smooth'
   };
 
   return (
-    <div style={globalStyles}>
-      <HeaderNav />
-      
-      {/* Added targeted IDs around sections */}
-      <div id="home">
-        <HeroSection />
-      </div>
-      
-      <StatsRow />
-      
-      <div id="why-choose-us">
-        <WhyChooseUs />
-      </div>
-      
-      <div id="services">
-        <OurServices />
-      </div>
-      
-      <div id="quote-section">
-        <QuoteAndHours />
-      </div>
-      
-      <div id="about">
-        <ExcellenceAndAccreditation />
-      </div>
-      
-      <div id="contact">
-        <ContactUs />
-      </div>
-      <ToastContainer position="top-right" autoClose={3000} />
+    <Router>
+      <ScrollToTop /> 
 
-      <Footer />
-    </div>
+      <div style={globalStyles}>
+     
+        <NavigationWrapper>
+          <Routes>
+           
+            <Route path="/" element={<LandingPage />} />
+            <Route path="/blog/:serviceId" element={<BlogPage />} />
+            <Route path="/our-fleet" element={<OurFleet />} />
+            <Route path="/transport-quote-service" element={<Getquote />} />
+  <Route clssName="mt-4" path="/our-services" element={<OurServices1 />} />
+           
+            <Route path="/admin" element={<AdminLogin />} />
+            <Route path="/admin/dashboard" element={<AdminDashboard />} />
+          </Routes>
+        </NavigationWrapper>
+
+        <ToastContainer position="top-right" autoClose={3000} />
+      </div>
+    </Router>
   );
 }
 

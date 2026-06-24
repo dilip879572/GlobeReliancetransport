@@ -1,16 +1,22 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Container, Row, Col, Form, Button } from 'react-bootstrap';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 
 export default function HeroSection() {
+  const navigate = useNavigate();
+
   const styles = {
-   heroSection: {
+    heroSection: {
       position: 'relative',
-      backgroundImage: `linear-gradient(
-        to bottom right, 
-        rgba(23, 37, 84, 0.9) 0%, 
-        rgba(30, 58, 138, 0.4) 50%, 
-        rgba(23, 37, 84, 0.85) 100%
-      ), url('https://globe-reliance-transport.vercel.app/assets/hero-bg-DvJaDUqj.png')`,
+      backgroundImage: `
+    linear-gradient(
+      to bottom right,
+      rgba(23, 37, 84, 0.9) 0%,
+      rgba(30, 58, 138, 0.4) 50%,
+      rgba(23, 37, 84, 0.85) 100%
+    ),
+    url("/assets/image_64f4dee4.png")
+  `,
       backgroundSize: 'cover',
       backgroundPosition: 'center right',
       minHeight: '540px',
@@ -18,17 +24,18 @@ export default function HeroSection() {
       alignItems: 'center',
       color: '#ffffff',
       padding: '70px 0',
-      fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
+      fontFamily:
+        '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif'
     },
-    title: { 
-      fontSize: '3.4rem', 
-      fontWeight: '700', 
+    title: {
+      fontSize: '3.4rem',
+      fontWeight: '700',
       lineHeight: '1.15',
       color: '#ffffff',
       letterSpacing: '-0.5px',
       marginBottom: '15px'
     },
-    highlight: { 
+    highlight: {
       color: '#f58233' /* Same to same vibrant orange */
     },
     subTextRow: {
@@ -111,9 +118,39 @@ export default function HeroSection() {
       transition: 'opacity 0.2s'
     }
   };
+  const [pickup, setPickup] = useState("");
+  const [date, setDate] = useState("");
+  const [pax, setPax] = useState("");
 
+  const handleGetQuote = () => {
+    if (!pickup || !date || !pax) return;
+
+    navigate("/transport-quote-service");
+  };
+  const dubaiLocations = [
+    "Dubai International Airport (DXB)",
+    "Downtown Dubai",
+    "Dubai Marina",
+    "Jumeirah Beach Residence (JBR)",
+    "Palm Jumeirah",
+    "Bur Dubai",
+    "Deira",
+    "Business Bay",
+    "Al Barsha",
+    "Jumeirah Lake Towers (JLT)",
+    "Al Karama",
+    "Dubai Silicon Oasis",
+    "Dubai Sports City",
+    "Dubai Investment Park",
+    "Discovery Gardens",
+    "Mirdif",
+    "Arabian Ranches",
+    "Dubai Hills Estate",
+    "International City",
+    "Expo City Dubai",
+  ];
   return (
-    <section style={styles.heroSection}>
+    <section className='mt-5' style={styles.heroSection}>
       {/* Dynamic native CSS overrides to match pure placeholder values exactly */}
       <style>
         {`
@@ -134,15 +171,15 @@ export default function HeroSection() {
 
       <Container>
         <Row className="align-items-center g-4">
-          
+
           {/* LEFT SIDE: Heading and Client Badges */}
           <Col lg={7} className="mb-5 mb-lg-0">
-            <h1 style={styles.title}>
+            <h1 style={styles.title} className='mt-5'>
               Globe Reliance:<br />
               <span style={styles.highlight}>Reliable Bus Rental</span><br />
               in Dubai
             </h1>
-            
+
             <div style={styles.subTextRow}>
               <span>Trusted by <span style={styles.boldSpan}>500+ Clients</span></span>
               <span>▶</span>
@@ -158,53 +195,85 @@ export default function HeroSection() {
                 <div style={styles.cardIndicator}></div>
                 <div style={styles.cardTitle}>Get Instant Quote</div>
               </div>
-              
+
               <Form>
-                {/* Pickup Field */}
+                {/* Pickup Location */}
                 <Form.Group className="mb-3">
-                  <Form.Control 
-                    type="text" 
-                    placeholder="Select Pickup Location" 
-                    className="same-input"
+                  <Form.Select
+                    value={pickup}
+                    onChange={(e) => setPickup(e.target.value)}
                     style={styles.inputStyle}
-                  />
+                  >
+                    <option value="">Select Pickup Location</option>
+                    {dubaiLocations.map((loc, i) => (
+                      <option key={i} value={loc} style={{ color: "black" }}>
+                        {loc}
+                      </option>
+                    ))}
+                  </Form.Select>
                 </Form.Group>
 
-                {/* Bottom Row Fields (Date & Pax) */}
+                {/* Date & Pax */}
                 <Row className="g-2 mb-4">
                   <Col xs={6}>
-                    <Form.Control 
-                      type="text" 
-                      placeholder="Date" 
-                      onFocus={(e) => (e.target.type = "date")}
-                      onBlur={(e) => (e.target.type = "text")}
-                      className="same-input"
+                    <Form.Control
+                      type="date"
+                      value={date}
+                      onChange={(e) => setDate(e.target.value)}
                       style={styles.inputStyle}
                     />
                   </Col>
+
                   <Col xs={6}>
-                    <Form.Select 
-                      className="same-input same-select"
+                    <Form.Select
+                      value={pax}
+                      onChange={(e) => setPax(e.target.value)}
                       style={styles.inputStyle}
                     >
-                      <option value="1" style={{color: '#000000'}}>1 Pax</option>
-                      <option value="2" style={{color: '#000000'}}>2-5 Pax</option>
-                      <option value="5" style={{color: '#000000'}}>5+ Pax</option>
+                      <option value="" style={{ color: "black" }}>Pax</option>
+                      <option value="1" style={{ color: "black" }}>1 Pax</option>
+                      <option value="2-5" style={{ color: "black" }}>2-5 Pax</option>
+                      <option value="5+" style={{ color: "black" }}>5+ Pax</option>
                     </Form.Select>
                   </Col>
                 </Row>
 
-                {/* Submitting Buttons Row */}
+                {/* Buttons */}
                 <Row className="g-2">
                   <Col xs={6}>
-                    <Button type="button" style={styles.btnGetQuote} className="w-100 fw-bold">
+                    <Button
+                      type="button"
+                      disabled={!pickup || !date || !pax}
+                      onClick={handleGetQuote}
+                      style={{
+                        ...styles.btnGetQuote,
+                        opacity: !pickup || !date || !pax ? 0.5 : 1,
+                        cursor: !pickup || !date || !pax ? "not-allowed" : "pointer",
+                      }}
+                      className="w-100 fw-bold"
+                    >
                       Get Quote
                     </Button>
                   </Col>
+
                   <Col xs={6}>
-                    <Button type="button" style={styles.btnViewFleet} className="w-100 fw-bold">
-                      View Fleet
-                    </Button>
+                    <Link
+                      to={pickup && date && pax ? "/our-fleet" : "#"}
+                      onClick={(e) => {
+                        if (!pickup || !date || !pax) {
+                          e.preventDefault();
+                          alert("Please fill Pickup, Date & Pax first!");
+                        }
+                      }}
+                    >
+                      <Button
+                        type="button"
+                        style={styles.btnViewFleet}
+                        className="w-100 fw-bold"
+                      >
+                        View Fleet
+                      </Button>
+                    </Link>
                   </Col>
                 </Row>
               </Form>

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Container, Row, Col, Form, Button, InputGroup } from "react-bootstrap";
+import { Container, Row, Col, Form, Button, InputGroup,Modal } from "react-bootstrap";
 import {
   FaUser,
   FaBuilding,
@@ -11,6 +11,9 @@ import {
   FaPaperPlane,
 } from "react-icons/fa";
 import { toast } from "react-toastify";
+import PhoneInput from "react-phone-input-2";
+import "react-phone-input-2/lib/style.css";
+import "./main.css"
 export default function QuoteAndHours() {
   const styles = {
     sectionWrapper: {
@@ -47,7 +50,7 @@ export default function QuoteAndHours() {
       padding: "30px",
     },
     mainHeading: {
-      color: "#0d1b2a",
+      color: "#0056b3",
       fontWeight: "700",
       fontSize: "2rem",
       marginBottom: "8px",
@@ -68,6 +71,9 @@ export default function QuoteAndHours() {
       paddingLeft: "0",
       fontSize: "1rem",
     },
+
+
+    
     inputField: {
       border: "none",
       backgroundColor: "transparent",
@@ -145,7 +151,7 @@ export default function QuoteAndHours() {
     { day: "Saturday", time: "9:00 AM - 6:00 PM", isClosed: false },
   ];
 
-  const [formData, setFormData] = useState({
+const [formData, setFormData] = useState({
     name: "",
     lastname: "",
     company: "",
@@ -156,13 +162,24 @@ export default function QuoteAndHours() {
   });
   const [loading, setLoading] = useState(false);
 
+  // Modals State Management
+  const [modalState, setModalState] = useState({
+    show: false,
+    type: 'success', // 'success' ya 'error'
+    title: '',
+    message: ''
+  });
+
   const handleChange = (e) => {
     const { name, value } = e.target;
-
     setFormData((prev) => ({
       ...prev,
       [name]: value,
     }));
+  };
+
+  const handleCloseModal = () => {
+    setModalState(prev => ({ ...prev, show: false }));
   };
 
   const handleSubmit = async (e) => {
@@ -196,22 +213,41 @@ export default function QuoteAndHours() {
       const data = await response.json();
 
       if (response.ok) {
-        toast.success("Form submitted successfully!");
+        // Success Modal Open Karo
+        setModalState({
+          show: true,
+          type: 'success',
+          title: 'Thank You!',
+          message: 'Your inquiry has been submitted successfully. Our team will contact you shortly.'
+        });
 
+        // Form Reset (Fixed Keys to match Initial State)
         setFormData({
           name: "",
+          lastname: "", 
           company: "",
-          lastName: "",
           phone: "",
           email: "",
           subject: "",
-          notes: "",
+          message: "", 
         });
       } else {
-        toast.error(data.message || "Something went wrong");
+        // API Error Modal
+        setModalState({
+          show: true,
+          type: 'error',
+          title: 'Submission Failed',
+          message: data.message || "Something went wrong while processing your request. Please try again."
+        });
       }
     } catch (error) {
-      toast.error("Server error");
+      // Network/Server Error Modal
+      setModalState({
+        show: true,
+        type: 'error',
+        title: 'Server Error',
+        message: 'Unable to connect to the server. Please check your internet connection and try again.'
+      });
     } finally {
       setLoading(false);
     }
@@ -285,22 +321,45 @@ export default function QuoteAndHours() {
                 <Row>
                   {/* Phone Number */}
                   <Col md={6}>
-                    <InputGroup style={styles.inputGroup}>
-                      <InputGroup.Text style={styles.inputIcon}>
-                        <FaPhoneAlt />
-                      </InputGroup.Text>
-                      <Form.Control
-                        name="phone"
-                        value={formData.phone}
-                        onChange={handleChange}
-                        style={styles.inputField}
-                        className="custom-form-control"
-                        placeholder="Phone Number"
-                        required
-                      />
-                    </InputGroup>
-                  </Col>
+  <InputGroup style={styles.inputGroup}>
+    <InputGroup.Text style={styles.inputIcon}>
+      <FaPhoneAlt />
+    </InputGroup.Text>
 
+    <PhoneInput
+      country="ae"
+      value={formData.phone}
+      onChange={(phone) =>
+        setFormData({
+          ...formData,
+          phone,
+        })
+      }
+      enableSearch
+      containerStyle={{
+        flex: 1,
+      }}
+      inputStyle={{
+        width: "100%",
+        height: "48px",
+        border: "none",
+        background: "transparent",
+        color: "#333333",
+        fontSize: "0.95rem",
+        fontWeight: "500",
+        paddingLeft: "48px",
+        boxShadow: "none",
+      }}
+      buttonStyle={{
+        border: "none",
+        background: "transparent",
+      }}
+      dropdownStyle={{
+        width: "300px",
+      }}
+    />
+  </InputGroup>
+</Col>
                   {/* Email Address */}
                   <Col md={6}>
                     <InputGroup style={styles.inputGroup}>
@@ -430,6 +489,95 @@ export default function QuoteAndHours() {
           </Col>
         </Row>
       </Container>
+<Modal 
+  show={modalState.show} 
+  onHide={handleCloseModal} 
+  centered
+  backdrop="static"
+  dialogClassName="modal-sm d-flex justify-content-center"
+  contentClassName="border-0 shadow"
+  style={{ backdropFilter: 'blur(4px)' }}
+>
+  <Modal.Body 
+    className="text-center p-4 d-flex flex-column align-items-center" 
+    style={{ 
+      borderRadius: '24px', 
+      backgroundColor: '#ffffff',
+      maxWidth: '320px'
+    }}
+  >
+    {/* 1. Big Rounded Outlined Checkmark / Cross Badge */}
+    <div className="mb-3 mt-2">
+      {modalState.type === 'success' ? (
+        <div 
+          className="d-flex align-items-center justify-content-center rounded-circle" 
+          style={{ 
+            width: '85px', 
+            height: '85px', 
+            border: '4px solid #198754', 
+            color: '#198754',
+            fontSize: '42px',
+            fontWeight: '300'
+          }}
+        >
+          ✓
+        </div>
+      ) : (
+        <div 
+          className="d-flex align-items-center justify-content-center rounded-circle" 
+          style={{ 
+            width: '85px', 
+            height: '85px', 
+            border: '4px solid #dc3545', 
+            color: '#dc3545',
+            fontSize: '42px',
+            fontWeight: '300'
+          }}
+        >
+          ✕
+        </div>
+      )}
+    </div>
+
+    {/* 2. Catchy Main Title */}
+    <h3 
+      className="fw-bold mb-3 mt-1" 
+      style={{ 
+        color: modalState.type === 'success' ? '#198754' : '#dc3545',
+        fontSize: '1.6rem'
+      }}
+    >
+      {modalState.type === 'success' ? 'Oh Yeah!' : 'Oops!'}
+    </h3>
+    
+    {/* 3. Sub-text Description */}
+    <p 
+      className="text-muted mb-4 px-2" 
+      style={{ 
+        fontSize: '0.95rem', 
+        lineHeight: '1.4',
+        fontWeight: '500'
+      }}
+    >
+      {modalState.message}
+    </p>
+
+    {/* 4. Small Square/Slightly Rounded Action Button */}
+    <Button 
+      variant={modalState.type === 'success' ? 'success' : 'danger'} 
+      onClick={handleCloseModal}
+      className="fw-semibold shadow-none border-0 mb-2"
+      style={{ 
+        padding: '6px 20px',
+        borderRadius: '6px', 
+        fontSize: '0.9rem',
+        backgroundColor: modalState.type === 'success' ? '#198754' : '#dc3545'
+      }}
+    >
+      Ok
+    </Button>
+  </Modal.Body>
+</Modal>
     </div>
   );
 }

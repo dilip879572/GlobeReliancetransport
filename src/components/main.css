@@ -1,0 +1,104 @@
+.react-tel-input .form-control:focus {
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.react-tel-input .selected-flag {
+  background: transparent !important;
+}
+
+.react-tel-input .selected-flag:hover,
+.react-tel-input .selected-flag:focus {
+  background: transparent !important;
+}
+
+
+/* Sabhi screens ke liye common styles */
+.top-header {
+  background-color: #ffffff;
+  padding: 10px 0;
+}
+
+.brand-text {
+  color: #0056b3;
+  font-weight: bold;
+  font-size: 1.4rem;
+  letter-spacing: 0.5px;
+}
+
+.phone-number-text {
+  color: #0056b3;
+  font-weight: 800;
+  font-size: 1.0rem;
+}
+
+.phone-number {
+  color: #0056b3;
+  font-weight: 800;
+  font-size: 1.4rem;
+}
+
+.navbar-container {
+  background-color: #0056b3;
+  padding: 0;
+}
+
+.tagline {
+  color: #ffffff;
+  font-weight: 500;
+  font-size: 0.85rem;
+  letter-spacing: 0.5px;
+}
+
+.nav-link-custom {
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 0.85rem;
+  padding: 15px 18px;
+}
+
+.book-now-btn {
+  background-color: #ff7f50;
+  color: #ffffff;
+  font-weight: bold;
+  padding: 15px 30px;
+  text-decoration: none;
+  display: inline-block;
+}
+
+/* --- MEDIA QUERY FOR PHONE VIEW (Mobile Screens) --- */
+@media (max-width: 767px) {
+  .logo-col, .brand-col, .phone-col {
+    display: flex !important;
+    justify-content: center !important;
+    text-align: center !important;
+    width: 100% !important; /* Har element ko poori width dekar center karega */
+  }
+
+  .brand-text {
+    font-size: 1.1rem; /* Mobile par text size chota taaki ek line me fit ho */
+    margin: 10px 0;
+  }
+
+  .phone-number {
+    font-size: 1.2rem;
+  }
+}
+
+
+.custom-btn {
+  border-color: #e67e22;
+  color: #e67e22;
+  transition: all 0.3s ease;
+}
+
+.custom-btn:hover {
+  background-color: rgb(0, 86, 179) !important;
+  color: #fff !important;
+  border-color: rgb(0, 86, 179) !important;
+}
+
+.icon-blue {
+  color: #0f4c81;
+  font-size: 18px;   /* icon size increase */
+}

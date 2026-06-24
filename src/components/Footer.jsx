@@ -1,12 +1,16 @@
 import React from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
-import { 
-  GeoAltFill, 
-  Globe, 
-  Facebook, 
-  Twitter, 
-  ArrowUpShort 
-} from 'react-bootstrap-icons';
+import {
+  GeoAltFill,
+  Globe,
+  Facebook,
+  Twitter,
+  Instagram,
+  Linkedin,
+  Whatsapp,
+
+  ArrowUpShort,
+} from "react-bootstrap-icons";
 
 const Footer = () => {
   // Smooth scroll to top function for the orange button
@@ -20,7 +24,7 @@ const Footer = () => {
       <div style={styles.topAccentBar}></div>
 
       <Container fluid="lg" style={styles.contentContainer}>
-        
+
         {/* ROW 1: Location, Socials, Website */}
         <Row className="align-items-center justify-content-between gy-3">
           <Col xs={12} md={4} className="text-center text-md-start">
@@ -29,15 +33,27 @@ const Footer = () => {
               <span style={styles.locationText}>DUBAI, UAE</span>
             </div>
           </Col>
-          
+
           <Col xs={12} md={4} className="text-center">
             <div style={styles.socialIconsGroup}>
-              <a href="#" style={styles.socialIconCircle}><Globe size={16} /></a>
-              <a href="#" style={styles.socialIconCircle}><Facebook size={16} /></a>
+              <a href="https://theglobaltalentresource.com/" style={styles.socialIconCircle}><Globe size={16} /></a>
+              <a href="https://www.instagram.com/globe.reliance?igsh=MXFlZmI2Ym53Y2JpdA==" target='black' style={styles.socialIconCircle}><Instagram size={16} /></a>
+              <a href="https://www.facebook.com/share/18dHc6j6ec/" target='black' style={styles.socialIconCircle}><Facebook size={16} /></a>
+              <a href="https://www.linkedin.com/company/globe-reliance-transport/" target='black' style={styles.socialIconCircle}><Linkedin size={16} /></a>
+
+
+              <a
+                href="https://web.whatsapp.com/send?phone=971567564664&text="
+                target="_blank"
+                rel="noopener noreferrer"
+                style={styles.socialIconCircle}>
+                <Whatsapp size={16} />
+              </a>
               <a href="#" style={styles.socialIconCircle}><Twitter size={16} /></a>
+
             </div>
           </Col>
-          
+
           <Col xs={12} md={4} className="text-center text-md-end">
             <a href="https://www.websitehere.com" target="_blank" rel="noreferrer" style={styles.mainWebsiteLink}>
               WWW.WEBSITEHERE.COM
@@ -45,10 +61,9 @@ const Footer = () => {
           </Col>
         </Row>
 
-        {/* Divider line 1 */}
         <hr style={styles.divider} />
 
-        {/* ROW 2: Branding Logos & Sub-domains */}
+
         <Row className="justify-content-center gy-4 py-2">
           {/* Brand 1 */}
           <Col xs={12} md={5} className="d-flex justify-content-center justify-content-md-start align-items-center">
@@ -58,8 +73,7 @@ const Footer = () => {
               <a href="https://theglobaltalentresource.com" style={styles.brandLink}>theglobaltalentresource.com</a>
             </div>
           </Col>
-          
-          {/* Spacer column for wide screens */}
+
           <Col md={2} className="d-none d-md-block"></Col>
 
           {/* Brand 2 */}
@@ -72,10 +86,10 @@ const Footer = () => {
           </Col>
         </Row>
 
-        {/* Divider line 2 */}
+       
         <hr style={styles.divider} />
 
-        {/* ROW 3: Copyright Info */}
+      
         <Row>
           <Col className="text-center">
             <p style={styles.copyrightText}>
@@ -93,10 +107,10 @@ const Footer = () => {
   );
 };
 
-// Precise styling rules matching the provided design layout
+
 const styles = {
   footerContainer: {
-    backgroundColor: '#0052B4', // High-fidelity corporate royal blue matching your image
+    backgroundColor: '#0052B4', 
     position: 'relative',
     color: '#ffffff',
     fontFamily: '"Montserrat", "Segoe UI", Arial, sans-serif',
@@ -104,7 +118,7 @@ const styles = {
     width: '100%',
   },
   topAccentBar: {
-    backgroundColor: '#FF6F3C', // The sharp orange header accent strip
+    backgroundColor: '#FF6F3C', 
     height: '6px',
     width: '100%',
     marginBottom: '35px',
@@ -120,7 +134,7 @@ const styles = {
     gap: '8px',
   },
   locationIcon: {
-    color: '#FF6F3C', // Distinct orange location pointer icon
+    color: '#FF6F3C', 
     fontSize: '1.3rem',
   },
   locationText: {

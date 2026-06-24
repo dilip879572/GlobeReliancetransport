@@ -80,7 +80,7 @@ const ContactUs = () => {
                 <div>
                   <div style={styles.infoLabel}>EMAIL</div>
                   <div style={styles.infoDetail}>
-                    <a href="mailto:info@globereliance.com" style={styles.emailLink}>info@globereliance.com</a>
+                    <a href="mailto:info@globereliancetransport.com" style={styles.emailLink}>info@globereliancetransport.com</a>
                   </div>
                 </div>
               </div>
